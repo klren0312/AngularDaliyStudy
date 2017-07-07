@@ -1,3 +1,3 @@
-#Angularjs 学习
+# Angularjs 学习
 
- -day1 --- 2017-7-7
+ - day1 --- 2017-7-7
