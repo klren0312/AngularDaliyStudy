@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        {{time}}
+    </div>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        //使用$interval服务
+        // app.controller('myCtrl', function($scope, $interval) {
+        //     $scope.time = new Date().toLocaleTimeString();
+        //     $interval(function() {
+        //         $scope.time = new Date().toLocaleTimeString();
+        //     }, 2000);
+        // })
+
+        //使用$apply服务
+        app.controller('myCtrl', function($scope) {
+            $scope.time = new Date().toLocaleTimeString();
+            $scope.setTime = function() {
+                $scope.$apply(function() {
+                    $scope.time = new Date().toLocaleTimeString();
+                });
+            }
+            setInterval($scope.setTime, 1000);
+        });
+    </script>
+</body>
+
+</html>
