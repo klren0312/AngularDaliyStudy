@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid grey;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <table>
+            <tr ng-repeat="x in names | orderBy:'Country' ">
+                <td>{{ $index+1 }}</td>
+                <td ng-if="$odd" style="background-color:#f1f1f1;">{{ x.Name | lowercase }}</td>
+                <td ng-if="$even" style="background-color:#fff;">{{x.Name | lowercase}}</td>
+                <td ng-if="$odd" style="background-color:#f1f1f1;">{{ x.Country | uppercase}}</td>
+                <td ng-if="$even" style="background-color:#fff;">{{ x.Country | uppercase}}</td>
+            </tr>
+        </table>
+    </div>
+    <script src="../js/angular165/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope, $http) {
+            $http.get("http://localhost/customs.php")
+                .then(function(result) {
+                    $scope.names = result.data.records;
+                    console.log($scope.names);
+                })
+        })
+    </script>
+</body>
+
+</html>

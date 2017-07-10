@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <select ng-model="myChoose">
+            <option value="klren">klren</option>
+            <option value="zzes">zzes</option>
+            <option value="cii">cii</option>
+        </select>
+        <div ng-switch="myChoose">
+            <div ng-switch-when="klren">
+                <h1>klren</h1>
+            </div>
+            <div ng-switch-when="zzes">
+                <h1>zzes</h1>
+            </div>
+            <div ng-switch-when="cii">
+                <h1>cii</h1>
+            </div>
+        </div>
+    </div>
+    <script src="../js/angular165/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function() {
+
+        })
+    </script>
+</body>
+
+</html>

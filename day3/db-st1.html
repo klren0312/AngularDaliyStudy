@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <table>
+            <tr>
+                <td repeat="x in text">{{x.Name}}</td>
+                <td repeat="x in text">{{x.City}}</td>
+            </tr>
+        </table>
+    </div>
+    <script src="../js/angular165/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope, $http) {
+            $http.get('http://localhost/dbtest.php')
+                .then(function(result) {
+                    $scope.text = result.data.records;
+                })
+        })
+    </script>
+</body>
+
+</html>
