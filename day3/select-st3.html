@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <!--<select ng-init="selectName = sites[0]" ng-model="selectName" ng-options="x for x in sites"></select>-->
+        <select ng-model="selectedSite" ng-options="x for (x,y) in sites"></select> {{selectedSite}}
+    </div>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            // 使用对象做数据源，x为key，y为value
+            $scope.sites = {
+                site01: "Google",
+                site02: "Runoob",
+                site03: "Taobao"
+            };
+        });
+    </script>
+</body>
+
+</html>

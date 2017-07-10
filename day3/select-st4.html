@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <select ng-model="selectName" ng-options="x for (x,y) in cars"></select>
+        <h2>brand:{{selectName.brand}}</h2>
+        <h2>model:{{selectName.model}}</h2>
+        <h2>color:{{selectName.color}}</h2>
+    </div>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            $scope.cars = {
+                car01: {
+                    brand: "one",
+                    model: "first",
+                    color: "white"
+                },
+                car02: {
+                    brand: "two",
+                    model: "second",
+                    color: "white"
+                },
+                car03: {
+                    brand: "three",
+                    model: "third",
+                    color: "white"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
