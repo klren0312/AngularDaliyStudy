@@ -68,17 +68,19 @@ $http.get("请求的接口")
 <select ng-model="selectName" ng-option="x for (x,y) in sites"></select>
 ```
 
+
 ### 3.table相关
 
- 1.$odd 奇数行，$even 偶数行
- 2.css样式`{{$even?'background-color:#f1f1f1':'#fff'}}`
+ - $odd 奇数行，$even 偶数行
+ - css样式`{{$even?'background-color:#f1f1f1':'#fff'}}`
+
 
 
 ### 4.HTML DOM
 
- 1.ng-disabled 直接绑定应用程序数据到html的disabled属性
- 2.ng-show 指定显示或者隐藏html元素，可以通过`true`&`false`来控制，也可以通过表达式来计算布尔值
- 3.ng-hide 指定隐藏或者显示html元素，具体同上`ng-show`
+ - ng-disabled 直接绑定应用程序数据到html的disabled属性
+ - ng-show 指定显示或者隐藏html元素，可以通过`true`&`false`来控制，也可以通过表达式来计算布尔值
+ - ng-hide 指定隐藏或者显示html元素，具体同上`ng-show`
 
 
 ### 5.表单
