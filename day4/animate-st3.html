@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        @keyframes myChange {
+            from {
+                height: 100px;
+            }
+            to {
+                height: 0;
+            }
+        }
+        
+        div {
+            height: 100px;
+            background-color: lightblue;
+        }
+        
+        div.ng-hide {
+            animation: 0.5s myChange;
+        }
+    </style>
+</head>
+
+<body ng-app="ngAnimate">
+    hide div : <input type="checkbox" ng-model="myCheck">
+    <div ng-hide="myCheck"></div>
+    <script src="../js/angular165/angular.min.js"></script>
+    <script src="../js/angular165/angular-animate.min.js"></script>
+</body>
+
+</html>

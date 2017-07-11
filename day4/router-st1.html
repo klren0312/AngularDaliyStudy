@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div ng-app="myApp">
+        <ul>
+            <li><a href="#!/">home</a></li>
+            <li><a href="#!/first">first</a></li>
+            <li><a href="#!/second">second</a></li>
+            <li><a href="#!/other">other</a></li>
+        </ul>
+        <br>
+        <br>
+        <br>
+        <div ng-view></div>
+    </div>
+    <script src="../js/angular165/angular.min.js"></script>
+    <script src="../js/angular165/angular-route.min.js"></script>
+    <script>
+        var app = angular.module('myApp', ['ngRoute']);
+        app.config(['$routeProvider', function($routeProvider) {
+            // $routeProvider.hashPrefix('');
+            $routeProvider
+                .when('/', {
+                    template: '这是首页页面'
+                })
+                .when('/first', {
+                    template: "this is first page"
+                })
+                .when('/second', {
+                    template: "this is second page"
+                })
+                .when('/error', {
+                    template: "sorry there are some problems"
+                })
+                .otherwise({
+                    redirectTo: '/error'
+                });
+        }]);
+    </script>
+</body>
+
+</html>
