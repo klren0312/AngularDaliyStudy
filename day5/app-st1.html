@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .area {}
+        
+        .button {
+            float: left;
+            margin-left: 20px;
+        }
+        
+        p {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <div class="area">
+            <textarea ng-model="myText" cols="30" rows="10"></textarea>
+            <br>
+            <button class="button" ng-click="clean()">清除</button>
+            <button class="button" ng-click="save()">保存</button>
+            <p>剩余字数：{{ fontsum() }}</p>
+        </div>
+    </div>
+    <script src="../js/angular165/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            $scope.myText = "";
+            $scope.fontsum = function() {
+                return 100 - $scope.myText.length;
+            }
+            $scope.clean = function() {
+                $scope.myText = "";
+            }
+            $scope.save = function() {
+                alert("保存成功");
+            }
+        })
+    </script>
+</body>
+
+</html>

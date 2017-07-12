@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        your todo : <input type="text" ng-model="todomsg">
+        <button ng-click="add()">add</button>
+        <div ng-repeat="x in todos">
+            <input type="checkbox" ng-model="x.select"><span ng-bind="x.todomsg"></span>
+        </div>
+        <button ng-click="delete()">delete seleted</button>
+        <button ng-click="delall()">delete all</button>
+    </div>
+    <script src="../js/angular165/angular.min.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myCtrl", function($scope) {
+            $scope.todos = [{
+                todomsg: "test",
+                select: false
+            }];
+            $scope.add = function() {
+                $scope.todos.push({
+                    todomsg: $scope.todomsg,
+                    select: false
+                });
+            }
+            $scope.delete = function() {
+                var oldtodos = $scope.todos;
+                $scope.todos = [];
+                angular.forEach(oldtodos, function(x) {
+                    if (!x.select) {
+                        $scope.todos.push(x);
+                    }
+                })
+            }
+            $scope.delall = function() {
+                $scope.todos = [];
+            }
+        })
+    </script>
+</body>
+
+</html>
