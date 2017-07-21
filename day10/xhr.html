@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>xhr</title>
+</head>
+<body>
+	<script>
+		var data = JSON.stringify({
+		  "Name": "小",
+		  "Password": "Qi520"
+		});
+
+		var xhr = new XMLHttpRequest();
+		xhr.withCredentials = true;
+
+		xhr.addEventListener("readystatechange", function () {
+		  if (this.readyState === 4) {
+		    console.log(this.responseText);
+		  }
+		});
+
+		xhr.open("POST", "http://test-web.zencloud.net.cn/console/admin/login");
+		xhr.setRequestHeader("content-type", "application/json");
+ 
+
+		xhr.send(data);
+	</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>fetch</title>
+</head>
+<body>
+	<script>
+		function status(response) {
+             if (response.status >= 200 && response.status < 300) {
+                 return Promise.resolve(response);
+             } else {
+                 return Promise.reject(new Error(response.statusText));
+             }
+         }
+
+         function json(response) {
+             return response.json();
+         }
+         // post请求 
+         fetch("http://test-web.zencloud.net.cn/console/admin/login", {
+                 method: 'post',
+ 				 body:'{"Name": "小", "Password": "Qi520"}',
+                 headers: {
+                     "Content-Type": "application/json"
+                 }
+             })
+             .then(status)
+             .then(json)
+             .then(function(data) {
+                  console.log(data);
+             })
+	</script>
+</body>
+</html>

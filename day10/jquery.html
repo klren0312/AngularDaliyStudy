@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jquery</title>
+</head>
+<body>
+	<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.js"></script>
+	<script>
+		var settings = {
+		  "async": true,
+		  "crossDomain": true,
+		  "url": "http://test-web.zencloud.net.cn/console/admin/login",
+		  "method": "POST",
+		  "headers": {
+		    "content-type": "application/json",
+		 
+		  },
+		  "processData": false,
+		  "data": "{\"Name\": \"小\", \"Password\": \"Qi520\"}\r\n"
+		}
+
+		$.ajax(settings).done(function (response) {
+		  console.log(response);
+		});
+	</script>
+</body>
+</html>

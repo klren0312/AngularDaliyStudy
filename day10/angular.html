@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Angular</title>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <div>{{data}}</div>
+    <button ng-click="loginhttp()">test the post</button>
+    <script src="http://cdn.bootcss.com/angular.js/1.6.5/angular.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myCtrl", function($scope, $http, $log) {
+            $scope.loginhttp = function() {
+                var data = '{"Name": "小", "Password": "Qi520"}';
+                $log.log("即将发送的数据： " + data); //测试发送的json数据
+                $http({
+                	method:'post',
+                	url:'http://test-web.zencloud.net.cn/console/admin/login',
+                	data:data,
+                	headers:{"content-type": "application/json"},
+                }).then(function(req){
+                	$scope.data = req;
+                })
+            
+            }
+        })
+    </script>
+</body>
+
+</html>
