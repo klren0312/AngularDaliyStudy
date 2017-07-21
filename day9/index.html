@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+</head>
+
+<body ng-app="myApp">
+    <a ui-sref="router1" ui-sref-active="active">router1</a>
+    <a ui-sref="router2" ui-sref-active="active">router2</a>
+    <ui-view></ui-view>
+</body> 
+	<script src="../js/angular165/angular.min.js"></script>
+	<script src="../js/angular165/angular-ui-router.js"></script>
+	<script>
+	var myApp = angular.module("myApp", ['ui.router']);
+
+//// Type-1 normal view navigation
+myApp.config(function ($stateProvider, $urlRouterProvider) {
+    $stateProvider
+        .state("router1", {
+            url: "/router1",
+            templateUrl: "router1.html"
+        })
+        .state("router2", {
+            url: "/router2",
+            templateUrl: "router2.html"
+        });
+        $urlRouterProvider.otherwise('/router1');
+        
+});
+	</script>
+</body>
+</html>
