@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        {{test}}
+    </div>
+    <script src="../js/angular165/angular.min.js"></script>
+    <script>
+        angular.module('myApp', [])
+            .controller('myCtrl', function($scope, $http) {
+                $http.jsonp("https://open.ys7.com/api/lapp/token/get")
+                    .success(data, status, header, config) {
+                        $scope.list = data;
+                        alert(data);
+                    }
+            })
+            .error(
+                function(data) {
+                    alert("error");
+                }
+            )
+    </script>
+</body>
+
+</html>

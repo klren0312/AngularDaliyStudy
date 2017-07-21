@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <script>
+        $.ajax({
+            type: "get", //请求方式
+            async: true, //是否异步
+            url: "https://open.ys7.com/api/lapp/live/address/get",
+            dataType: "jsonp", //跨域json请求一定是jsonp
+            jsonp: "callbackparam", //跨域请求的参数名，默认是callback
+            //jsonpCallback:"successCallback",    //自定义跨域参数值，回调函数名也是一样，默认为jQuery自动生成的字符串
+            data: {
+                "accessToken": "at.0i1a1u1e8ejxu7qx896hznvb5fq7gfzs-1e5ohdz9ay-1ro1izw-im5qzkkwz",
+                "source": "427734222:1,423344555:3"
+            }, //请求参数
+            beforeSend: function() {
+                //请求前的处理
+            },
+
+            success: function(data) {
+                console.log(data);
+                //请求成功处理，和本地回调完全一样
+            },
+
+            complete: function() {
+                //请求完成的处理
+            },
+
+            error: function() {
+                //请求出错处理
+            }
+        });
+    </script>
+</body>
+
+</html>

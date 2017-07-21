@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<div ng-app="myApp" ng-controller="siteCtrl"> 
+
+<!--<ul>
+  <li ng-repeat="x in datas">
+    {{ x.accessToken}}
+  </li>
+</ul>-->
+{{datas.accessToken}}<br>
+{{datas.expireTime}}
+{{s}}
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+	
+app.controller('siteCtrl', function($scope, $http) {
+	$scope.s="d";
+	$http({
+		method: 'POST',
+		'Host':'open.ys7.com',
+		url: 'https://open.ys7.com/api/lapp/token/get',
+		'appKey':'9mqitppidgce4y8n54ranvyqc9fjtsrl',
+		'appSecret':'096e76501644989b63ba0016ec5776',
+		headers:{ 'Content-Type': 'application/x-www-form-urlencoded'}
+		 
+	}).jsonp("https://open.ys7.com/api/lapp/token/get?callback=angular.callbacks._0").then(function successCallback(response) {
+			//请求成功执行代码
+			$scope.s = console.log(response);
+			$scope.datas = response.data.data;
+		}, function errorCallback(response) {
+			// 请求失败执行代码
+	});
+  
+});
+</script>
+
+	</body>
+</html>
