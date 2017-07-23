@@ -13,3 +13,7 @@
  - [day3](./master/day3/) --- 2017-7-10 Angularjs的http，select，table，HTML DOM，表单，api
  - [day4](,/master/day4/) --- 2017-7-11 Angularjs的bootstrap,include,animate,DI,路由
  - [day5](./master/day5/) --- 2017-7-12 Angularjs的两个应用,笔记本,todo
+ - [day6-day8](./master/day6) --- 2017-7-13~15 some test
+ - [day9](./master/day9) --- 2017-7-21 ui-router测试
+ - [day10](./master/day10) --- 2017-7-21 测试各种方式请求接口
+ - [day11](./master/day11) --- 2017-7-23 嵌套路由
