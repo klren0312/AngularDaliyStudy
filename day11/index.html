@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div data-ng-app="myApp">
+		<div data-ui-view=""></div>
+	</div>
+	<script src="../js/angular165/angular.min.js"></script>
+	<script src="../js/angular165/angular-ui-router.js"></script>
+	<script>
+		var app  = angular.module("myApp", ['ui.router']);
+		app.config(
+				.state('PageTab', {
+					url:"/PageTab",
+					templateUrl:"PageTab.html"
+				})
+				.state('PageTab.Page1',{
+					url:"/Page1",
+					templateUrl:"Page-1.html"
+				})
+				.state('PageTab.Page2',{
+					url:"/Page2",
+					templateUrl:"Page-2.html"
+				})
+				.state('PageTab.Page3',{
+					url:"/Page3",
+					templateUrl:"Page-3.html"
+				});
+		})
+	</script>
+</body>
+</html>
