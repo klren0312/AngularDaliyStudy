@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body ng-app="myApp" ng-controller="myController">
+    <button ng-click="showdiv1(true)">show 1 div</button>
+    <button ng-click="showdiv2(true)">show 2 div</button>
+    <div ng-show="div1">
+        <h1>div1 test</h1>
+    </div>
+    <div ng-show="div2">
+        <h1>div2 test</h1>
+    </div>
+    <script src="../js/angular165/angular.min.js"></script>
+    <script src="../js/angular165/angular-ui-router.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myController", function($scope) {
+            $scope.showdiv1 = function(test) {
+                if (test) {
+                    $scope.div1 = true;
+                    $scope.div2 = false;
+                }
+            }
+            $scope.showdiv2 = function(test) {
+                if (test) {
+                    $scope.div2 = true;
+                    $scope.div1 = false;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
