@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div   ng-controller="myCtrl">
+		hello {{greetMe}}
+	</div>
+	<script src="../js/angular165/angular.min.js"></script>
+	<script>
+		angular.module('myApp', [])
+			.controller('myCtrl', ['$scope',function($scope){
+				$scope.greetMe = 'World';
+			}]);
+		angular.element(function(){
+			angular.bootstrap(document, ['myApp']);
+		})
+	</script>
+</body>
+</html>

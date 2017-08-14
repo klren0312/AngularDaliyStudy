@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+	<script src="../js/angular165/angular.min.js"></script>
+	<script>
+		var app = angular.module("myApp", [])
+		// provider
+		app.provider("greeting",function(){
+			this.$get = function(){
+				return function(name){
+					console.log("hello: "+ name)
+				}
+			}
+		})
+		// factory
+		app.factory('greeting', function(){
+			return function(name){
+				console.log("factory:  "+name)
+			}
+		})
+		// service
+		app.service("greeting", function(){
+			return function(name){
+				console.log("service:  "+name)
+			}
+		})
+		// value
+		app.value('greetvalue', function(name){
+			console.log("value:  "+ name)
+		})
+		app.controller("myCtrl", function($scope,greeting,greetvalue){
+			console.log(greeting("klren"))
+			console.log(greetvalue("zzes"))
+		})
+	</script>
+</body>
+</html>

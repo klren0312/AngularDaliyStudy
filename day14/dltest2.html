@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="myCtrl">
+		<button ng-click="onClick()">click me </button>
+	</div>
+	<script src="../js/angular165/angular.min.js"></script>
+	<script>
+		var app = angular.module("myApp", [])
+		app.config(function($provide){
+			$provide.provider('greeting',function() {
+				this.$get = function(){
+					return function(name){
+						console.log("hello" + name);
+					}
+				}
+			})
+		})
+		app.controller('myCtrl', function($scope, greeting){
+			$scope.onClick = function(){
+				greeting("klren")
+			}
+		})
+	</script>
+</body>
+</html>

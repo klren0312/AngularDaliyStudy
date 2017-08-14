@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>AngularJS Dependency Injection</title>
+</head>
+<body>
+	<h2>Angularjs DI</h2>
+	<div ng-app="mainApp" ng-controller="CalcController">
+		<p>Enter a number: <input type="number" ng-model="number"></p>
+		<button ng-click="square()">X <sup>2</sup></button>
+		<p>Result: {{result}}</p>
+	</div>
+	<script src="../js/angular165/angular.min.js"></script>
+	<script>
+		var app = angular.module("mainApp", []);
+
+		app.config(function($provide){
+			$provide.provider('MathService', function(){
+				this.$get = function(){
+					var factory = {};
+					factory.multiply = function(a,b){
+						return a * b;
+					}
+					return factory;
+				}
+			})
+		})
+
+		app.value("defaultInput", 5)
+
+		
+
+
+
+		app.service('CalcService', function(MathService){
+			this.square = function(a){
+				return MathService.multiply(a,a)
+			}
+		})
+
+		app.controller('CalcController', function($scope, CalcService, defaultInput){
+			$scope.number = defaultInput
+			$scope.result = CalcService.square($scope.number)
+			$scope.square = function(){
+				$scope.result = CalcService.square($scope.number)
+			}
+		})
+	</script>
+</body>
+</html>

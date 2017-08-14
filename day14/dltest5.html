@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+
+	<script src="../js/angular165/angular.min.js"></script>
+	<script>
+		var app = angular.module("myApp", [])
+		app.provider('greeting', function(){
+			var text = 'Hello, ';
+			this.setText = function(value){
+				text = value;
+			}
+			this.$get = function(){
+				return function(name){
+					console.log(text + name)
+				}
+			}
+		})
+		app.config(function(greetingProvider){
+			greetingProvider.setText("Howdy there, ");
+		});
+		app.run(function(greeting){
+			greeting('klren')
+		})
+		// app.controller("myCtrl", function($scope){
+
+		// })
+		app.config(function($controllerProvider){
+			$controllerProvider.register('myCtrl', function($scope){
+				
+			})
+		})
+	</script>
+</body>
+</html>
