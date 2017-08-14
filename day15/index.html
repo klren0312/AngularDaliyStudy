@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="../js/ui-grid.min.css">
+	<style>
+		.myGrid{
+			width: 100%;
+		}
+	</style>
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+	<script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/angular.js/1.6.5/angular.js"></script>
+	<!-- <script src="tableToExcelService.js"></script> -->
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+	<button type="button" class="output-btn" data-toggle="modal" data-target=".bs-example-modal-lg">导出</button>
+	 <!--表格-->
+    <table id="personManage-table" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th><input type="checkbox" ng-model="selectedAll" ng-click="selectAll()"></th>
+                <th>序号</th>
+                <th ng-show="did">UDeviceID</th>
+                <th ng-show="DeviceName">接入平台</th>
+                <th ng-show="BigType">产品类型</th>
+                <th ng-show="ModelID">设备型号</th>
+                <th ng-show="NetMode">连接方式</th>
+                <th ng-show="place">所在地区</th>
+                <th ng-show="runStatus">运行状态</th>
+                <th ng-show="onlineStatus">在线状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="x in items">
+                <th><input type="checkbox" ng-model="selected" ng-checked="selected" name="selected"></th>
+                <th>{{$index+1}}</th>
+                <th ng-show="did">{{x.udeviceId}}</th>
+                <th ng-show="DeviceName">{{x.DeviceName}}</th>
+                <th ng-show="BigType">{{x.BigType}}</th>
+                <th ng-show="ModelID">{{x.ModelID}}</th>
+                <th ng-show="NetMode">{{x.NetMode}}</th>
+                <th ng-show="place">/</th>
+                <th ng-show="runStatus">{{x.deviceStatus}}</th>
+                <th ng-show="onlineStatus">{{x.deviceStatus}}</th>
+                <th><a ui-sref="equipmentDetails({id:x.udeviceId})">查看</a></th>
+            </tr>
+        </tbody>
+    </table>
+    <!--分页-->
+    <nav class="select-page">
+        <ul class="pagination">
+            <li>
+                <a ng-click="Previous()"><span>上一页</span></a>
+            </li>
+            <li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}">
+                <a ng-click="selectPage(page)">{{page}}</a>
+            </li>
+            <li>
+                <a ng-click="Next()"><span>下一页</span></a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- 导出弹框 -->
+    <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="pop-title">导出数据</div>
+                <div class="pop-second-title">当前选择数据 <span>10</span> 条</div>
+                <div class="pop-radio-line">
+                    <span>导出选择：</span>
+                    <label><input type="radio" name="page" ng-model="allpage" />全部页批量</label>
+                    <label><input type="radio" name="page" ng-model="currentpage"/>所选当前页</label>
+                    <label><input type="radio" name="page" ng-model="result"/>筛选结果</label>
+                </div>
+                <hr/>
+                <div class="pop-checkbox-block">
+                    <span>选择指标：</span>
+                    <br>
+                    <label><input type="checkbox" name="did" ng-model="did" >UDeviceID</label>
+                    <label><input type="checkbox" name="DeviceName" ng-model="DeviceName">接入平台</label>
+                    <label><input type="checkbox" name="BigType" ng-model="BigType">产品类型</label>
+                    <label><input type="checkbox" name="ModelID" ng-model="ModelID">设备型号</label>
+                    <br>
+                    <label><input type="checkbox" name="NetMode" ng-model="NetMode">连接方式</label>
+                    <label><input type="checkbox" name="place" ng-model="place">所在地区</label>
+                    <label><input type="checkbox" name="runStatus" ng-model="runStatus">运行状态</label>
+                    <label><input type="checkbox" name="onlineStatus" ng-model="onlineStatus">在线状态</label>
+                </div>
+                <hr/>
+                <div class="pop-file-line">
+                    <span>文件保存：</span>
+                    <!--<input type="text" name="filepath" ng-model="filepath">
+                    <button ng-click="filesave()">浏览</button>-->
+                    <button ng-click="exportToExcel('#personManage-table','mysheet')">导出</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	<script>
+		 angular.module("myApp", [])
+			 .factory('Excel', function($window) {
+			    var uri = 'data:application/vnd.ms-excel;base64,',
+			        template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+			        base64 = function(s) {
+			            return $window.btoa(unescape(encodeURIComponent(s)));
+			        },
+			        format = function(s, c) {
+			            return s.replace(/{(\w+)}/g, function(m, p) {
+			                return c[p];
+			            })
+			        };
+			    return {
+			        tableToExcel: function(tableId, worksheetName) {
+			            var table = $(tableId),
+			                ctx = {
+			                    worksheet: worksheetName,
+			                    table: table.html()
+			                },
+			                href = uri + base64(format(template, ctx));
+			            return href;
+			        }
+			    };
+			})
+		 	.controller("myCtrl", function($scope, $log, $http, Excel, $timeout){
+			 	// 导出EXCEL
+			 	$scope.exportToExcel = function(tableId, sheetname) {
+			        $log.log("excel开始生成");
+			        var exportHref = Excel.tableToExcel(tableId, sheetname);
+			        $timeout(function() {
+			            location.href = exportHref;
+			        }, 100);
+			    }
+			 	function getdata(){
+			 		var url = "http://127.0.0.1:8083/console/devices?keyword=klren&page=0&pageSize=10";
+			        $log.log(url);
+			        $http({
+			            method: 'get',
+			            url: url,
+			            headers: {
+			                "content-type": "application/json"
+			            }
+			        }).then(function(req) {
+			            $scope.personinfos = req.data.retBody.data.platforms;
+			            // 设置分页相关数据
+			            // $scope.pageSize = req.data.retBody.pageSize;
+			            $scope.setPage($scope.personinfos)
+			        })	
+			 	}
+			 	/**
+			     * 分页函数
+			     * 传入数据数组
+			     */
+			    $scope.setPage = function(databody) {
+			        $scope.pageSize = 10;
+			        $scope.pages = Math.ceil(databody.length / $scope.pageSize); //分页数
+			        $scope.newPages = $scope.pages > $scope.pageSize ? $scope.pageSize : $scope.pages;
+			        $scope.pageList = [];
+			        $scope.selPage = 1;
+			        // 设置表格数据源
+			        $scope.setData = function() {
+			            // 通过当前页数筛选出表格当前显示数据
+			            $scope.items = databody.slice(($scope.pageSize * ($scope.selPage - 1)), ($scope.selPage * $scope.pageSize))
+			        }
+			        $scope.items = databody.slice(0, $scope.pageSize);
+			        // 分页数组
+			        for (var i = 0; i < $scope.newPages; i++) {
+			            $scope.pageList.push(i + 1);
+			        }
+			        // 打印当前选中页的索引
+			        $scope.selectPage = function(page) {
+			            // 不能小于1，大于最大值
+			            if (page < 1 || page > $scope.pages) return;
+			            // 最多显示5个分页
+			            if (page > 2) {
+			                // 因为只显示5个页数，大于2页开始分页转换
+			                var newPageList = [];
+			                for (var i = (page - 3); i < ((page + 2) > $scope.pages ? $scope.pages : (page + 2)); i++) {
+			                    newPageList.push(i + 1);
+			                }
+			                $scope.pageList = newPageList;
+			            }
+			            $scope.selPage = page;
+			            $scope.setData();
+			            $scope.isActivePage(page);
+			            $log.log("选择的页：" + page);
+			        };
+			        // 设置选中页样式
+			        $scope.isActivePage = function(page) {
+			            return $scope.selPage == page;
+			        };
+			        // 上一页点击事件
+			        $scope.Previous = function() {
+			                $scope.selectPage($scope.selPage - 1);
+			            }
+			            // 下一页点击事件
+			        $scope.Next = function() {
+			            $scope.selectPage($scope.selPage + 1);
+			        }
+			    }
+			    // 获取数据
+			    getdata()
+
+		 	})
+   
+	</script>
+</body>
+</html>
