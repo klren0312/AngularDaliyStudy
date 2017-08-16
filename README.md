@@ -17,3 +17,8 @@
  - [day9](./master/day9) --- 2017-7-21 ui-router测试
  - [day10](./master/day10) --- 2017-7-21 测试各种方式请求接口
  - [day11](./master/day11) --- 2017-7-23 嵌套路由
+ - [day12-day13](./master/day12) --- 2017-8-1 路由
+ - [day14](./master/day14) --- 2017-8-14 依赖注入
+ - [day15](./master/day15) --- 2017-8-14 excel导出
+ - [day16](./master/day16) --- 2017-8-15 单选框动态显示
+ - [day17](./master/day17) --- 2017-8-16 下拉框联动
