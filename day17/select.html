@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <select ng-model="s1" ng-options="str.name for str in strs"  >
+        <option value="">--请选择--</option>
+    </select>
+    <select ng-model="s2" ng-options="unit.name for unit in s1.units">
+        <option value="">--请选择--</option>
+    </select>
+    <select ng-model="s3" ng-options="position.name for position in s2.positions">
+        <option value="">--请选择--</option>
+    </select>
+    <script src="../js/angular165/angular.js"></script>
+    <script>
+    var app = angular.module("myApp", [])
+    app.controller("myCtrl", function($scope) {
+    	$scope.strs = [
+	    	{code:'01', name:"klren1", units:[
+	    		{code:'0101', name:"zzes11", positions:[
+	    			{code:'010101', name:"kl111"},
+	    			{code:'010102', name:"kl112"}
+	    		]},
+	    		{code:'0102', name:"zzes12",positions:[
+	    			{code:'010201',name:"kl121"},
+	    			{code:'010202',name:"kl122"}
+	    		]},
+	    	]},
+	    	{code:"02", name:"klren2",units:[
+	    		{code:"0201", name:"zzes21",positions:[
+	    			{code:"020101", name:"kl211"},
+	    			{code:"020102", name:"kl212"}
+	    		]},
+	    		{code:"0202", name:"zzes22",positions:[
+	    			{code:"020201", name:"kl221"},
+	    			{code:"020202", name:"kl222"}
+	    		]},
+	    	]},
+    	]
+    })
+    </script>
+</body>
+
+</html>
