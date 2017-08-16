@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="myCtrl">
+		<!-- <label  ng-repeat="x in arrStr">
+			<input type="radio" name="type1" ng-model="demo" value="{{x}}">
+			{{x}}
+		</label>
+		{{demo}} -->
+		
+			<input type="radio" name="t1" ng-model="demo" value="a">a <br>
+			<input type="radio" name="t1" ng-model="demo" value="b">b
+		
+		
+		<h2>{{demo}}</h2>
+	</div>
+	<script src="../js/angular165/angular.js"></script>
+	<script>
+		var app = angular.module("myApp", [])
+		app.controller("myCtrl", function($scope, $http, $log) {
+			// 若功能为数组
+			$scope.arrStr = ["true","false"];
+			// $log.log($scope.arrStr[0])
+			// 若功能为字符串
+			// $scope.str = '"自动","手动"';
+			// $log.log($scope.type1)
+		
+		})
+
+	</script>
+</body>
+</html>
