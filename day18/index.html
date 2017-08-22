@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl" >
+	<select ng-model="devicetype" ng-options="x.category for x in devices" ng-change="changeType(devicetype)">
+		<option value="">--设备--</option>
+	</select>
+	<select ng-model="yourdevice" ng-options="x.dev for x in yourdevices" ng-change="changeDev(yourdevice)">
+		<option value="">--你的设备--</option>
+	</select>
+	<br>
+	<select ng-model="param" ng-options="p.display_name for p in params" ng-change="changeParam(param.display_name)">
+			<option value="">--属性--</option>
+	</select>
+	<div ng-switch="type">
+		<div ng-switch-when="bool" style="margin: -20px auto auto 90px;">
+			<label ng-repeat="x in views.data_range">
+				<input type="radio" name="radio" value="{{x}}">{{x}}
+			</label>
+		</div>
+		<div ng-switch-when="num" style="margin: -20px auto auto 90px;">
+			<select ng-model="compare">
+				<option value="0">&lt;</option>
+				<option value="1">=</option>
+				<option value="2">&gt;</option>
+			</select>
+			{{views.data_range}}
+			<input type="text">
+		</div>
+	</div>
+	
+
+	<script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+	<script>
+		var app = angular.module("myApp", [])
+		app.controller("myCtrl", function($scope,$http,$log){
+			$scope.devices = [
+				{"category":"大家电"},
+				{"category":"红外感应"},
+				{"category":"监控"},
+				{"category":"灯光"},
+			]
+			// 根据大类来获取设备列表
+			$scope.changeType = function(x){
+				$log.log(x.category)
+				//TODO: 真正使用肯定是要用$http来请求设备列表
+				// $scope.getDev()
+				//暂时测试使用下面的
+				switch(x.category){
+					case "大家电":
+						$scope.yourdevices = [
+							{"dev":"电视机(mac:32309fsaf)"},
+							{"dev":"洗衣机(mac:32309fsaf)"},
+							{"dev":"冰箱(mac:32309dqsq)"},
+							{"dev":"空调(mac:32309fsaf)"}
+						];
+						break;
+				}
+			}
+
+			$scope.changeDev = function(x){
+				$log.log(x.dev)
+				switch(x.dev){
+					case "电视机(mac:32309fsaf)":
+						$scope.params = [
+							{
+								"display_name":"开关",
+								"data_type":"bool",
+								"data_range":['开','关']
+							},
+							{
+								"display_name":"温度",
+								"data_type":"num",
+								"data_range":[30]
+							}
+						]
+						var paramsarr = $scope.params;
+						var paramobj={};
+						paramsarr.forEach(function (v, i) {
+						  paramobj[v.display_name] = v;
+						})
+						$scope.paramobjs = paramobj;
+
+				}
+			}
+
+			$scope.changeParam = function(x){
+				var pobj = $scope.paramobjs;
+
+				$scope.views = pobj[x];
+				$scope.type = $scope.views.data_type
+				$log.log($scope.views)
+			}
+
+			// TODO: 请求设备
+			// $scope.getDev = function(x){
+			// 	var devurl = "http://localhost/api/"+x+"devlist"
+			// 	$http({
+			// 		method:"get",
+			// 		url: devurl,
+			// 		headers:{
+			// 			"content-type":"application/json"
+			// 		}
+			// 	}).then(function(req){
+			// 		$scope.yourdevice = req.devlist
+			// 	})
+			// }
+
+		})
+	</script>
+</body>
+</html>
