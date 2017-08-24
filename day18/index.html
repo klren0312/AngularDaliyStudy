@@ -22,6 +22,13 @@
 			margin-top: 20px;
 			border: 1px solid #d4d4d4;
     	}
+    	.btn{
+    		width: 400px;
+    		height: 40px;
+    		border: 0;
+    		box-shadow: 0;
+    		margin-top: 20px;
+    	}
     </style>
 </head>
 
@@ -41,20 +48,28 @@
         <div ng-switch="type">
             <div ng-switch-when="bool" class="getSelect">
                 <label ng-repeat="x in views.data_range">
-                    <input type="radio" name="radio" value="{{x}}">{{x}}
+                    <input ng-model="$parent.$parent.selectvalue" type="radio" name="radio" value="{{x}}">{{x}}
                 </label>
             </div>
+   
             <div ng-switch-when="num" class="getSelect">
-                <select ng-model="compare">
+                <select ng-model="$parent.selectvalue">
                     <option value="0">&lt;</option>
                     <option value="1">=</option>
                     <option value="2">&gt;</option>
                 </select>
                 {{views.data_range}}
-                <input type="text">
+                <input type="text" ng-model="$parent.selectText">
             </div>
+ 
         </div>
+        <button class="btn" ng-click="post()">提交</button>
+        <p>
+            {{devicetype.category}},{{yourdevice.dev}},{{param.display_name}},{{selectvalue}},{{selectText}}    
+        </p>
+        
     </div>
+    
     <script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
     <script>
     var app = angular.module("myApp", [])
@@ -63,6 +78,9 @@
             { "category": "大家电" },
             { "category": "红外感应" },
         ]
+        $scope.post = function(){
+        	$log.log("devicetype:"+$scope.devicetype.category+", device:"+$scope.yourdevice.dev+", param:"+$scope.param.display_name+", value:"+$scope.selectvalue)
+        }
         // 根据大类来获取设备列表
         $scope.changeType = function(x) {
             $log.log(x.category)
@@ -167,22 +185,8 @@
 
             $scope.views = pobj[x];
             $scope.type = $scope.views.data_type
-            $log.log($scope.views)
+            // $log.log($scope.views)
         }
-
-        // TODO: 请求设备
-        // $scope.getDev = function(x){
-        // 	var devurl = "http://localhost/api/"+x+"devlist"
-        // 	$http({
-        // 		method:"get",
-        // 		url: devurl,
-        // 		headers:{
-        // 			"content-type":"application/json"
-        // 		}
-        // 	}).then(function(req){
-        // 		$scope.yourdevice = req.devlist
-        // 	})
-        // }
 
     })
     </script>
