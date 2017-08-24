@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body ng-app="myApp">
+	<div ng-controller="TestCtrl">
+		<div ng-repeat="boy in boys">
+			<span style="color: red;"  ng-bind="boy.name"></span>
+			<span style="color: green;" ng-bind="boy.age"></span>
+			<button ng-click="boy.growUP()">grow up</button>
+		</div>
+	</div>
+	<script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+	<script>
+		var app = angular.module("myApp", [])
+		app.controller("TestCtrl", function($scope){
+			$scope.boys = [{
+				name:"Tom",
+				age:5,
+				growUP:function(){
+					this.age ++;
+				}
+			},{
+				name:"Jerry",
+				age:2,
+				growUP:function(){
+					this.age ++
+				}
+			}]
+		})
+
+	</script>
+</body>
+
+</html>

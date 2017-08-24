@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp" ng-controller="myCtrl">
+	<span ng-bind="counter"></span>
+	<!-- <button ng-click="counter=counter+1">increase</button> -->
+	<button myclick>increase</button>
+	<script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+	<script>
+		var app = angular.module("myApp", [])
+		app.controller("myCtrl", function($scope){
+			$scope.counter = 0;
+			// $scope.$digest();
+		})
+		app.directive("myclick", function(){
+			return function(scope, element, attr){
+				element.on("click", function(){
+					scope.counter++;
+					scope.$digest()
+				})
+			}
+		})
+	</script>
+</body>
+</html>

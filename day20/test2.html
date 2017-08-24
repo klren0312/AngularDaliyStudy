@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp">
+	<div  ng-controller="OuterCtrl">
+		<span ng-bind="a"></span>
+		<div ng-controller="InnerCtrl">
+			<span ng-bind="a"></span>
+			<span ng-bind="b"></span>
+			<button ng-click="increase()">increase a</button>
+		</div>
+	</div>
+	<script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+	<script>
+		var app = angular.module("myApp", [])
+		app.controller("OuterCtrl", function($scope){
+			$scope.a = 1;
+		})
+		app.controller("InnerCtrl", function($scope){
+			$scope.b = 100;
+
+			$scope.increase = function(){
+				$scope.a++;
+			}
+		})
+	</script>
+</body>
+</html>
