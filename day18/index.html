@@ -54,9 +54,12 @@
    
             <div ng-switch-when="num" class="getSelect">
                 <select ng-model="$parent.selectvalue">
-                    <option value="0">&lt;</option>
+                    <option value="0">&ne;</option>
                     <option value="1">=</option>
-                    <option value="2">&gt;</option>
+                    <option value="2">&lt;</option>
+                    <option value="3">&gt;</option>
+                    <option value="4">&lt;=</option>
+                    <option value="5">&gt;=</option>
                 </select>
                 {{views.data_range}}
                 <input type="text" ng-model="$parent.selectText">
