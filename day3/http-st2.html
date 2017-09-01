@@ -16,15 +16,25 @@
             </li>
         </ul>
     </div>
-    <script src="../js/angular165/angular.min.js"></script>
+    <script src="../js/angular165/angular.js"></script>
     <script>
         var app = angular.module('myApp', []);
         app.controller('myCtrl', function($scope, $http) {
             // angular 1.6
-            $http.get("http://localhost/sites.php")
-                .then(function(response) {
-                    $scope.names = response.data.sites;
-                })
+            var cateurl = 'http://192.168.1.139:8083/console/devices/poi/'
+            var databody = '{"ids":["1"]}'
+            $http({
+                method: "post",
+                url: cateurl,
+                headers: {
+                    "content-type": "application/json"
+                },
+                data: databody
+            }).then(function(req) {
+                $log.log("category:")
+                $log.log(req.data.retBody.DeviceCategory)
+                $scope.categorys = req.data.retBody.DeviceCategory
+            })
         })
     </script>
 </body>

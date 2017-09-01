@@ -5,53 +5,62 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <style>
-    	body{
-    		padding: 0;
-    		margin: 0 auto;
-    		text-align: center;
-    	}
-
-    	.select{
-    		width: 200px;
-    		height: 40px;
-			text-align: center;
-			margin-top: 20px;
-    	}
-    	.getSelect{
-			font-size: 1em;
-			margin-top: 20px;
-			border: 1px solid #d4d4d4;
-    	}
-    	.btn{
-    		width: 400px;
-    		height: 40px;
-    		border: 0;
-    		box-shadow: 0;
-    		margin-top: 20px;
-    	}
+        body {
+            padding: 0;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .select {
+            width: 200px;
+            height: 40px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .getSelect {
+            font-size: 1em;
+            margin-top: 20px;
+            border: 1px solid #d4d4d4;
+        }
+        
+        .btn {
+            width: 400px;
+            height: 40px;
+            border: 0;
+            box-shadow: 0;
+            margin-top: 20px;
+        }
     </style>
 </head>
 
 <body>
     <div ng-app="myApp" ng-controller="myCtrl" class="all">
-        <select class="select" ng-model="devicetype" ng-options="x.category for x in devices" ng-change="changeType(devicetype)">
-            <option value="">--设备--</option>
+        <select class="select" ng-model="category" ng-options="x.category for x in categorys" ng-change="changeType(category)">
+            <option value="">--产品类目--</option>
         </select>
-        <select class="select" ng-model="yourdevice" ng-options="x.dev for x in yourdevices" ng-change="changeDev(yourdevice)">
-            <option value="">--你的设备--</option>
+        <select class="select" ng-model="devicedefinition" ng-options="x.deviceName  for x in devicedefinitions" ng-change="changeDev(devicedefinition)">
+            <option value="">--设备名（mac)--</option>
         </select>
         <br>
-        <select class="select" ng-model="param" ng-options="p.display_name for p in params" ng-change="changeParam(param.display_name)">
-            <option value="">--属性--</option>
+        <select class="select" ng-model="devicedetail" ng-options="p.display_name for p in devicedetails" ng-change="changeParam(devicedetail)">
+            <option value="">--参数值--</option>
+        </select>
+        <select ng-model="valuedetails" ng-repeat="x in data_ranges">
+            <option value="">{{x}}</option>
         </select>
         <br>
         <div ng-switch="type">
             <div ng-switch-when="bool" class="getSelect">
-                <label ng-repeat="x in views.data_range">
+                <label ng-repeat="x in data_ranges">
                     <input ng-model="$parent.$parent.selectvalue" type="radio" name="radio" value="{{x}}">{{x}}
                 </label>
             </div>
-   
+            <div ng-switch-when="enum" class="getSelect">
+                <select ng-model="$parent.$parent.selectvalue" ng-options="p in data_ranges">
+                    <option value="">--值--</option>
+                </select>
+            </div>
             <div ng-switch-when="num" class="getSelect">
                 <select ng-model="$parent.selectvalue">
                     <option value="0">&ne;</option>
@@ -61,138 +70,19 @@
                     <option value="4">&lt;=</option>
                     <option value="5">&gt;=</option>
                 </select>
-                {{views.data_range}}
                 <input type="text" ng-model="$parent.selectText">
             </div>
- 
+
         </div>
         <button class="btn" ng-click="post()">提交</button>
         <p>
-            {{devicetype.category}},{{yourdevice.dev}},{{param.display_name}},{{selectvalue}},{{selectText}}    
+            {{devicetype.category}},{{yourdevice.dev}},{{param.display_name}},{{selectvalue}},{{selectText}}
         </p>
-        
+
     </div>
-    
+
     <script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
-    <script>
-    var app = angular.module("myApp", [])
-    app.controller("myCtrl", function($scope, $http, $log) {
-        $scope.devices = [
-            { "category": "大家电" },
-            { "category": "红外感应" },
-        ]
-        $scope.post = function(){
-        	$log.log("devicetype:"+$scope.devicetype.category+", device:"+$scope.yourdevice.dev+", param:"+$scope.param.display_name+", value:"+$scope.selectvalue)
-        }
-        // 根据大类来获取设备列表
-        $scope.changeType = function(x) {
-            $log.log(x.category)
-            //TODO: 真正使用肯定是要用$http来请求设备列表
-            // $scope.getDev()
-            //暂时测试使用下面的
-            switch (x.category) {
-                case "大家电":
-                    $scope.yourdevices = [
-                        { "dev": "电视机(mac:32309fsaf)" },
-                        { "dev": "洗衣机(mac:32309fsaf)" },
-                    ];
-                    break;
-                case "红外感应":
-                    $scope.yourdevices = [
-                        { "dev": "红外感应吊顶(mac:32309fsaf)" },
-                        { "dev": "红外感应灯(mac:32309fsaf)" },
-                    ];
-                    break;
-
-            }
-        }
-
-        $scope.changeDev = function(x) {
-            $log.log(x.dev)
-            switch (x.dev) {
-                case "电视机(mac:32309fsaf)":
-                    $scope.params = [{
-                            "display_name": "开关",
-                            "data_type": "bool",
-                            "data_range": ['开', '关']
-                        },
-                        {
-                            "display_name": "电视温度",
-                            "data_type": "num",
-                            "data_range": [30]
-                        }
-                    ]
-                    var paramsarr = $scope.params;
-                    var paramobj = {};
-                    paramsarr.forEach(function(v, i) {
-                        paramobj[v.display_name] = v;
-                    })
-                    $scope.paramobjs = paramobj;
-                    break;
-                case "洗衣机(mac:32309fsaf)":
-                    $scope.params = [{
-                            "display_name": "开关",
-                            "data_type": "bool",
-                            "data_range": ['开', '关']
-                        },
-                        {
-                            "display_name": "转速",
-                            "data_type": "num",
-                            "data_range": [300]
-                        }
-                    ]
-                    var paramsarr = $scope.params;
-                    var paramobj = {};
-                    paramsarr.forEach(function(v, i) {
-                        paramobj[v.display_name] = v;
-                    })
-                    $scope.paramobjs = paramobj;
-                    break;
-                case "红外感应吊顶(mac:32309fsaf)":
-                    $scope.params = [{
-                        "display_name": "感应",
-                        "data_type": "bool",
-                        "data_range": ['有', '无']
-                    }]
-                    var paramsarr = $scope.params;
-                    var paramobj = {};
-                    paramsarr.forEach(function(v, i) {
-                        paramobj[v.display_name] = v;
-                    })
-                    $scope.paramobjs = paramobj;
-                    break;
-                case "红外感应灯(mac:32309fsaf)":
-                    $scope.params = [{
-                            "display_name": "开关",
-                            "data_type": "bool",
-                            "data_range": ['开', '关']
-                        },
-                        {
-                            "display_name": "感应",
-                            "data_type": "bool",
-                            "data_range": ['有', '无']
-                        }
-                    ]
-                    var paramsarr = $scope.params;
-                    var paramobj = {};
-                    paramsarr.forEach(function(v, i) {
-                        paramobj[v.display_name] = v;
-                    })
-                    $scope.paramobjs = paramobj;
-                    break;
-            }
-        }
-
-        $scope.changeParam = function(x) {
-            var pobj = $scope.paramobjs;
-
-            $scope.views = pobj[x];
-            $scope.type = $scope.views.data_type
-            // $log.log($scope.views)
-        }
-
-    })
-    </script>
+    <script src="index.js"></script>
 </body>
 
 </html>
