@@ -23,5 +23,9 @@
  - [day16](./master/day16) --- 2017-8-15 单选框动态显示
  - [day17](./master/day17) --- 2017-8-16 下拉框联动1
  - [day18](./master/day18) --- 2017-8-22 下拉框联动2，按照相关要求进行模拟
- - [day18](./master/day18) --- 2017-8-22 下拉框联动2，按照相关要求进行模拟
- - [day18](./master/day18) --- 2017-8-22 下拉框联动2，按照相关要求进行模拟
+ - [day19](./master/day19) --- 2017-8-22 directive
+ - [day20](./master/day20) --- 2017-8-22 digest
+ - [day21](./master/day21) --- 2017-8-24 设计模式
+ - [day22](./master/day22) --- 2017-8-25 repeat
+ - [day23](./master/day23) --- 2017-8-26 ng-repeat添加
+ - [day24](./master/day24) --- 2017-8-26 directive
