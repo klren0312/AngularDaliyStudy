@@ -1,27 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta charset="UTF-8">
+    <title>Document</title>
 </head>
+
 <body ng-app="myApp" ng-controller="myCtrl">
-	<button ng-click="add()">add</button>
-	<div  >
-		<ul>
-			<li ng-repeat="item in list track by $index"><a href="">test</a></li>
-		</ul>
-	</div>
-	<script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
-	<script>
-		var app = angular.module("myApp", [])
-		app.controller("myCtrl", function($scope,$http,$log) {
-			$scope.list=[]
-			$scope.add = function(){
-				$log.log("in")
-				$scope.list.push("new")
-				$log.log($scope.list)
-			}
-		})
-	</script>
+    <button ng-click="add()">addScope</button>
+    <div ng-repeat="item in list track by $index" style="border-top: 8px solid #d4d4d4;">
+        <!-- <p>{{item.id}}</p> -->
+        <div>
+            <input type="text" name="title" ng-model="item.title">
+            <br>
+            <select class="select" ng-model="item.category" ng-change="changeType(category)">
+                <option value="">--类目--</option>
+                <option value="1">test1</option>
+                <option value="2">test2</option>
+            </select>
+            <select class="select" ng-model="item.devicedefinition" ng-change="changeDev(devicedefinition)">
+                <option value="">--名（mac)--</option>
+                <option value="1">test1</option>
+                <option value="2">test2</option>
+            </select>
+            <br>
+            <select class="select" ng-model="item.devicedetail" ng-change="changeParam(devicedetail)">
+                <option value="">--值--</option>
+                <option value="1">test1</option>
+                <option value="2">test2</option>
+            </select>
+            <input type="radio" name="{{item}}" ng-model="item.value" value="true">yes
+            <input type="radio" name="{{item}}" ng-model="item.value" value="false">no
+        </div>
+        <!-- <button ng-click="addData(item.id)">addItem</button> -->
+    </div>
+    <br>
+    <button ng-click="viewAllData()">viewAllData</button>
+    <br>
+    <p>viewAllData: <span>{{list}}</span></p>
+    <hr>
+    <hr>
+    <div ng-repeat="x in theList">
+        <span>{{x}}</span>
+    </div>
+    <script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+    <script>
+    var app = angular.module("myApp", [])
+    app.controller("myCtrl", function($scope, $http, $log) {
+        $scope.list = []
+        var post = {}
+        var id = 0;
+        $scope.add = function() {
+            post = {}
+            // post.id = id
+            $scope.list.push(post)
+            id++
+        }
+        // $scope.addData = function(id) {
+        //     $log.log($scope.list[id])
+        // }
+        $scope.viewAllData = function() {
+            $log.log($scope.list)
+            $scope.theList = $scope.list
+        }
+    })
+    </script>
 </body>
+
 </html>
