@@ -29,6 +29,6 @@
  - [day22](./master/day22) --- 2017-8-25 repeat
  - [day23](./master/day23) --- 2017-8-26 ng-repeat添加
  - [day24](./master/day24) --- 2017-8-26 directive
- - [day25](./master/day25) --- 2017-9-5 directive
+ - [day25](./master/day25) --- 2017-9-5 select 显示多参数
  - [day26](./master/day26) --- 2017-9-5 directive
  - [day27](./master/day27) --- 2017-9-8 表格测试
