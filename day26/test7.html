@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+		<div>父scope:
+			<div>Say:{{user.name}}<br>改变父scope的name:<input type="text" ng-model="user.name" name=""></div>
+		</div>
+		<div>隔离scope:
+			<div isolated-directive user="user"></div>
+		</div>
+		<div>隔离scope:(使用{{name}})
+			<div isolated-directive user="{{user}}"></div>
+		</div>
+	</div>
+	<script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+	<script type="text/javascript">
+		var app = angular.module("myApp", [])
+		app.controller('myCtrl', function($scope) {
+			$scope.user={
+				name:"hello",
+				id:1
+			}
+		})
+		app.directive("isolatedDirective", function(){
+			return {
+				scope:{
+					user:"="
+				},
+				template:'Say:{{user.name}}<br>改变隔离scope的name:i<input type="button" value="" ng-model=user.name" />'
+			}
+		})
+	</script>
+</body>
+</html>

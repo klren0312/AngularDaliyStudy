@@ -1,0 +1,32 @@
+<!-- scope作用域下，@示例 -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+</head>
+<body ng-app="myApp">
+	<div ng-controller="listCtrl">
+		<input type="text" ng-model="t">
+		<test title="{{t}}">
+			<span>my ng</span>
+		</test>
+	</div>
+	<script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+	<script type="text/javascript">
+		var app = angular.module("myApp", [])
+		app.controller("listCtrl",function($scope) {
+			$scope.logchore="motorola"
+		})
+		app.directive("test",function(){
+			return {
+				'restrict':'E',
+				scope:{
+					title:"@"
+				},
+				template:'<div>{{title}}</div>'
+			}
+		})
+	</script>
+</body>
+</html>
