@@ -1,30 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta charset="UTF-8">
+    <title>Document</title>
 </head>
+
 <body ng-app="myApp" ng-controller="myCtrl">
-	<select ng-model="dev" ng-repeat="  x  in arr" ng-change="change(x.id)">
-		<option value="{{x.id}}">{{x.deviceName}}({{x.mac}})</option>
+    <select ng-model="dev"  ng-change="change(dev)">
+		<option ng-repeat="x  in arr"  value="{{x.deviceName}}" >{{x.deviceName}}({{x.mac}})</option>
 	</select>
-	<script src="../js/angular165/angular.js"></script>
-	<script type="text/javascript">
-		var app = angular.module("myApp", [])
-		app.controller("myCtrl", function($scope,$log){
-			$scope.arr = [{
+    {{dev}}
+    <script src="../js/angular165/angular.js"></script>
+    <script type="text/javascript">
+        var app = angular.module("myApp", [])
+        app.controller("myCtrl", function($scope, $log) {
+            $scope.arr = [{
                 "id": 1,
                 "deviceName": "小明灯",
                 "mac": "fdasfda",
                 "pk": "22",
                 "categoryId": 1
+            }, {
+                "id": 2,
+                "deviceName": "sd",
+                "mac": "fdasfda",
+                "pk": "22",
+                "categoryId": 1
             }]
 
-            $scope.change = function(id){
-            	$log.log(id)
+            $scope.change = function(id) {
+                $log.log(id)
             }
 
-		})
-	</script>
+        })
+    </script>
 </body>
+
 </html>
