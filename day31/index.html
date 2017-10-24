@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <!--<button ng-json-export-excel data="datalist" report-fields="{id: 'ID Heder', DeviceName: 'DeviceName', udeviceId: 'udeviceId'}" separator=','>Json Export</button>-->
+    <!--<pre style="margin-top: 10px">
+        &lt;button ng-json-export-excel data="datalist" report-fields="{id: 'ID Heder', name: 'Name Header', price: 'Price Head'}"&gt;&lt;/button&gt;
+    </pre>-->
+    <hr> {{select}}
+    <button ng-json-export-excel data="datalist" report-fields="select" filename="'filename'" separator=',' class="btn-sm btn-primary">Export Excel</button>
+    <pre style="margin-top: 10px">
+        &lt;div ng-json-export-excel data="datalist" report-fields="{id: 'ID Heder', name: 'Name Header', price: 'Price Head'}" filename="filename"&gt;&lt;/div&gt;
+    </pre>
+    <hr>
+    <script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+    <script src="FileSaver.min.js"></script>
+    <script src="json-export-excel.js"></script>
+    <script>
+        var app = angular.module("myApp", ["ngJsonExportExcel"])
+        app.controller('myCtrl', function($scope, $http, $log) {
+            $http({
+                methods: "get",
+                url: 'http://localhost:8083/console/devices?keyword=洗衣机&page=0&pageSize=10',
+                headers: {
+                    "content-type": "application/json"
+                }
+            }).then(function(req) {
+                // $log.log(req.data.retBody.data.platforms)
+                $scope.datalist = req.data.retBody.data.platforms
+                $scope.select = "{id: 'ID Heder', DeviceName: 'DeviceName', udeviceId: 'udeviceId'}"
+            })
+        })
+    </script>
+</body>
+
+</html>

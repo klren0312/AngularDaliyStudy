@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body ng-app="myApp" ng-controller="myCtrl">
+    <ul ng-repeat="data in MyData.collection track by $index">
+      {{data}}
+    </ul>
+    <script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+    <script src="https://cdn.bootcss.com/angular-websocket/2.0.1/angular-websocket.js" charset="utf-8"></script>
+    <script type="text/javascript">
+      var app = angular.module("myApp", ['ngWebSocket'])
+                .factory('MyData', function($websocket){
+                  var dataStream = $websocket('ws://localhost:5000')
+                  var collections = []
+                  dataStream.onMessage(function(message){
+                    collections.push(message)
+                  })
+                  var methods = {
+                    collection: collections,
+                    get: function(){
+                      dataStream.send(JSON.stringify({action:'get'}))
+                    }
+                  }
+                  return methods;
+                })
+                .controller('myCtrl', function($scope,MyData){
+                  $scope.MyData = MyData
+                })
+    </script>
+  </body>
+</html>

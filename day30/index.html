@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+
+    <script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+    <script src="FileSaver.min.js"></script>
+    <script>
+        var app = angular.module("myApp", [])
+        app.controller("myCtrl", function($scope, $http, $log) {
+            var requestDownloadFile =
+                $http({
+                    url: 'http://localhost:8083/console/devices/poi',
+                    responseType: 'arraybuffer',
+                    method: "post",
+                    headers: {
+                        'contentType': 'application/json',
+                        'Accept': 'application/vnd.ms-excel '
+                    }
+                });
+            requestDownloadFile.then(function(data) {
+                saveAs(data, 'test.xlsx');
+            });
+        })
+    </script>
+</body>
+
+</html>

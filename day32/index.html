@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <div ng-switch="type">
+        <div ng-switch-when="ty1">
+            <h1>THIS IS ty1</h1>
+        </div>
+        <div ng-switch-when="ty2">
+            <h1>THIS IS ty2</h1>
+        </div>
+        <div ng-switch-when="ty3|ty4" ng-switch-when-separator="|">
+            <h1>THIS IS ty3</h1>
+        </div>
+    </div>
+
+    <script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+
+    <script>
+        var app = angular.module("myApp", [])
+        app.controller('myCtrl', function($scope, $http, $log) {
+            $scope.type = "ty5";
+        })
+    </script>
+</body>
+
+</html>

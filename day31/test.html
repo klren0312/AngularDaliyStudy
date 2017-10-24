@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <button ng-click="exportExcel(arr)">export</button>
+    <script src="http://cdn.bootcss.com/angular.js/1.6.6/angular.js"></script>
+    <script type="text/javascript" src="JsonExportExcel.min.js"></script>
+    <script>
+        var app = angular.module("myApp", [])
+        app.controller("myCtrl", function($scope, $http, $log) {
+            $http({
+                methods: "get",
+                url: 'http://localhost:8083/console/devices?keyword=洗衣机&page=0&pageSize=10',
+                headers: {
+                    "content-type": "application/json"
+                }
+            }).then(function(req) {
+                // $log.log(req.data.retBody.data.platforms)
+                $scope.datalist = req.data.retBody.data.platforms
+                $scope.select = "{id: 'ID Heder', DeviceName: 'DeviceName', udeviceId: 'udeviceId'}"
+
+            })
+            $scope.arr = ['id', 'DeviceName']
+
+            $scope.exportExcel = function(paramFilter) {
+                var option = {}
+                option.fileName = 'excel'
+                option.datas = [{
+                    sheetData: $scope.datalist,
+                    sheetName: 'sheet',
+                    sheetFilter: paramFilter,
+                    sheetHeader: paramFilter,
+                }]
+                var toExcel = new ExportJsonExcel(option);
+                toExcel.saveExcel();
+            }
+
+
+
+        })
+    </script>
+</body>
+
+</html>
